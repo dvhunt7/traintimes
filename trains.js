@@ -10,19 +10,19 @@
 
 const dbRef = firebase.database().ref('Trains/traininfo');
 
-// 2. Button for adding Employees
+
 $("#add-train-btn").click(function(event) {
   
-  // prevent form submisson
+
   event.preventDefault();
 
-  // Creates local "temporary" object for holding employee data
+
   const newtrain = {
     name: $("#name-input").val().trim(),
     destination: $("#destination-input").val().trim(),
     frequency: $("#frequency-input").val().trim(),
     nextarrival: $("#next-input").val().trim(),
-    minutesaway: $("#minutes-input").val().trim(),
+    //minutesaway: $("#minutes-input").val().trim(),
   };
 
 
@@ -34,15 +34,15 @@ $("#add-train-btn").click(function(event) {
   
 });
 
-// 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+
 dbRef.on("child_added", function(childSnapshot, prevChildKey) {
 
-  // Employee Info
+
   const newtrain = childSnapshot.val();
   console.log(newtrain);
   
 
-  // Add each employee's data into the table
+
   $("#traintable > tbody").append(createTrainRow(newtrain));
 });
 
@@ -52,13 +52,13 @@ function createTrainRow(train) {
       .append(`<td>${train.destination}</td>`)
       .append(`<td>${train.frequency}</td>`)
       .append(`<td>${train.nextarrival}</td>`)
-      .append(`<td>${train.minutesaway}</td>`);
+      //.append(`<td>${train.minutesaway}</td>`);
 
   return trow;
 }
 
 function resetInputs() {
-  // Selector particular to our HTML, not generically applicable 
+
   $("form input:not([submit])").val('');
   $("#employee-name-input").focus();
 }
